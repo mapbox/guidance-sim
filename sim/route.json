@@ -1,0 +1,245 @@
+{
+  "origin": {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -97.74446105957031,
+        30.280317306518555
+      ]
+    },
+    "properties": {
+      "name": "Nueces Street"
+    }
+  },
+  "destination": {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -97.74627685546875,
+        30.269023895263672
+      ]
+    },
+    "properties": {
+      "name": "Guadalupe Street"
+    }
+  },
+  "waypoints": [],
+  "routes": [
+    {
+      "distance": 1473,
+      "duration": 152,
+      "summary": "West 17th Street - Guadalupe Street",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -97.744467,
+            30.280318
+          ],
+          [
+            -97.744458,
+            30.280356
+          ],
+          [
+            -97.743919,
+            30.280203
+          ],
+          [
+            -97.743399,
+            30.280055
+          ],
+          [
+            -97.742319,
+            30.279747
+          ],
+          [
+            -97.74261,
+            30.27896
+          ],
+          [
+            -97.742644,
+            30.278869
+          ],
+          [
+            -97.742814,
+            30.278407
+          ],
+          [
+            -97.742977,
+            30.277967
+          ],
+          [
+            -97.74302,
+            30.277851
+          ],
+          [
+            -97.743182,
+            30.277411
+          ],
+          [
+            -97.743312,
+            30.277058
+          ],
+          [
+            -97.743354,
+            30.276946
+          ],
+          [
+            -97.743526,
+            30.276479
+          ],
+          [
+            -97.743699,
+            30.276012
+          ],
+          [
+            -97.743897,
+            30.275477
+          ],
+          [
+            -97.744071,
+            30.275004
+          ],
+          [
+            -97.744109,
+            30.2749
+          ],
+          [
+            -97.744148,
+            30.274794
+          ],
+          [
+            -97.744344,
+            30.274264
+          ],
+          [
+            -97.744541,
+            30.273695
+          ],
+          [
+            -97.744718,
+            30.273221
+          ],
+          [
+            -97.744887,
+            30.272768
+          ],
+          [
+            -97.745077,
+            30.272262
+          ],
+          [
+            -97.745128,
+            30.272124
+          ],
+          [
+            -97.745236,
+            30.271835
+          ],
+          [
+            -97.745366,
+            30.271489
+          ],
+          [
+            -97.745422,
+            30.27134
+          ],
+          [
+            -97.74555,
+            30.270997
+          ],
+          [
+            -97.745593,
+            30.270883
+          ],
+          [
+            -97.745753,
+            30.270456
+          ],
+          [
+            -97.745936,
+            30.269966
+          ],
+          [
+            -97.746283,
+            30.269023
+          ]
+        ]
+      },
+      "steps": [
+        {
+          "maneuver": {
+            "type": "depart",
+            "location": {
+              "type": "Point",
+              "coordinates": [
+                -97.744467,
+                30.280318
+              ]
+            },
+            "instruction": "Head north on Nueces Street"
+          },
+          "distance": 4,
+          "duration": 29,
+          "way_name": "Nueces Street",
+          "direction": "N",
+          "heading": 11,
+          "mode": "driving"
+        },
+        {
+          "maneuver": {
+            "type": "turn right",
+            "location": {
+              "type": "Point",
+              "coordinates": [
+                -97.744458,
+                30.280356
+              ]
+            },
+            "instruction": "Turn right onto West 17th Street"
+          },
+          "distance": 216,
+          "duration": 44,
+          "way_name": "West 17th Street",
+          "direction": "E",
+          "heading": 108,
+          "mode": "driving"
+        },
+        {
+          "maneuver": {
+            "type": "turn right",
+            "location": {
+              "type": "Point",
+              "coordinates": [
+                -97.742319,
+                30.279747
+              ]
+            },
+            "instruction": "Turn right onto Guadalupe Street"
+          },
+          "distance": 1252,
+          "duration": 92,
+          "way_name": "Guadalupe Street",
+          "direction": "S",
+          "heading": 198,
+          "mode": "driving"
+        },
+        {
+          "maneuver": {
+            "type": "arrive",
+            "location": {
+              "type": "Point",
+              "coordinates": [
+                -97.746283,
+                30.269023
+              ]
+            },
+            "instruction": "You have arrived at your destination"
+          }
+        }
+      ]
+    }
+  ]
+}
