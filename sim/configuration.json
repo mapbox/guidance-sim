@@ -1,0 +1,32 @@
+{
+  "style": "mapbox://styles/mapbox/streets-v8",
+  "route": {"code":"Ok","routes":[{"geometry":{"coordinates":[[-97.744467,30.280318],[-97.747391,30.272446],[-97.74309,30.271235],[-97.744125,30.268433],[-97.746277,30.269019]],"type":"LineString"},"legs":[{"duration":299.9,"steps":[{"geometry":{"coordinates":[[-97.744467,30.280318],[-97.744766,30.279476],[-97.745117,30.278551],[-97.745156,30.278446],[-97.745498,30.277546],[-97.745844,30.276602],[-97.746249,30.275534],[-97.746274,30.275471],[-97.746299,30.275406],[-97.746712,30.274303],[-97.74704,30.273384],[-97.747391,30.272446]],"type":"LineString"},"maneuver":{"exit":9,"bearing_after":197,"bearing_before":0,"location":[-97.744467,30.280318],"type":"depart","instruction":"Head south on Nueces St"},"mode":"driving","duration":137.5,"name":"Nueces St","distance":919.5},{"geometry":{"coordinates":[[-97.747391,30.272446],[-97.746583,30.272216],[-97.746308,30.272126],[-97.745491,30.271895],[-97.745391,30.271868],[-97.745303,30.271857],[-97.745231,30.271848],[-97.745165,30.271843],[-97.745101,30.27183],[-97.745016,30.271807],[-97.744384,30.271599],[-97.744162,30.271532],[-97.74309,30.271235]],"type":"LineString"},"maneuver":{"exit":3,"bearing_after":108,"bearing_before":198,"location":[-97.747391,30.272446],"modifier":"left","type":"turn","instruction":"Turn left onto W 9th St"},"mode":"driving","duration":73.3,"name":"W 9th St","distance":435.1},{"geometry":{"coordinates":[[-97.74309,30.271235],[-97.74344,30.270295],[-97.743786,30.269354],[-97.744125,30.268433]],"type":"LineString"},"maneuver":{"exit":2,"bearing_after":198,"bearing_before":108,"location":[-97.74309,30.271235],"modifier":"right","type":"turn","instruction":"Turn right onto Colorado St"},"mode":"driving","duration":64.9,"name":"Colorado St","distance":327.1},{"geometry":{"coordinates":[[-97.744125,30.268433],[-97.745206,30.26873],[-97.745394,30.268788],[-97.746277,30.269019]],"type":"LineString"},"maneuver":{"exit":1,"bearing_after":288,"bearing_before":198,"location":[-97.744125,30.268433],"modifier":"right","type":"turn","instruction":"Turn right onto W 6th St"},"mode":"driving","duration":24.2,"name":"W 6th St","distance":216.8},{"geometry":{"coordinates":[[-97.746277,30.269019]],"type":"LineString"},"maneuver":{"bearing_after":0,"bearing_before":287,"location":[-97.746277,30.269019],"type":"arrive","instruction":"You have arrived at your final destination"},"mode":"driving","duration":0,"name":"W 6th St","distance":0}],"distance":1898.5}],"duration":299.9,"distance":1898.5}],"waypoints":[{"name":"Nueces St","location":[-97.744467,30.280318]},{"name":"W 6th St","location":[-97.746277,30.269019]}]},
+  "zoom": 17,
+  "pitch": 60,
+  "time": "00m00s",
+  "speed": "1x",
+  "maneuvers": [
+    {
+      "type": [
+        "depart",
+        "arrive"
+      ],
+      "modifier": [],
+      "buffer": 0.10,
+      "zoom": 17.3,
+      "pitch": 50
+    },
+    {
+      "type": [
+        "turn"
+      ],
+      "modifier": [
+        "left",
+        "right"
+      ],
+      "buffer": 0.10,
+      "zoom": 17.3,
+      "pitch": 50
+    }
+  ]
+}
