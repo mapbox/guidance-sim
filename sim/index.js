@@ -1,4 +1,6 @@
+var currentStep = require('navigation.js').currentStep;
 var mapboxgl = require('mapbox-gl');
+var point = require('turf-point');
 var queue = require('queue-async');
 var request = require('request');
 var stylePrep = require('guidance-geojson').stylePrep;
@@ -39,5 +41,23 @@ map.on('style.load', function () {
     document.getElementById('step-pitch').innerHTML = 'pitch: ' + util.isInteger(data.pitch) + '°';
     document.getElementById('step-zoom').innerHTML = 'zoom: ' + util.isInteger(data.zoom);
     if (data.speed) { document.getElementById('step-speed').innerHTML = 'speed: ' + util.isInteger(data.speed) + ' mph'; }
+
+    // Add navigation
+    var navigation = require('navigation.js').nextStep({
+      units: 'miles',
+      maxReRouteDistance: 0.03,
+      maxSnapToLocation: 0.01
+    });
+
+    var userLocation = point(data.coords);
+    var route = config.route.routes[0].legs[0];
+    var userCurrentStep = currentStep(userLocation, config.route);
+    var userNextStep = navigation.findNextStep(userLocation, route, userCurrentStep);
+    if (route.steps.length - 1 !== userNextStep.step) {
+      document.getElementById('step').innerHTML = 'In ' + Math.round(userNextStep.distance * 5280) + ' feet ' + util.firstToLowerCase(route.steps[userNextStep.step + 1].maneuver.instruction);
+    } else {
+      document.getElementById('step').innerHTML = 'You have reached your destination';
+    }
   });
 });
+

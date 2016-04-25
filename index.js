@@ -2,8 +2,9 @@ var Emitter = require('guidance-replay').Emitter;
 var getRoute = require('guidance-replay').route;
 var turfDistance = require('turf-distance');
 var turfPoint = require('turf-point');
-var util = require('./lib/util');
+
 var getManeuvers = require('./lib/maneuvers');
+var util = require('./lib/util');
 
 /**
  * This function determines the directions API version and runs the simulator.
@@ -68,16 +69,18 @@ function simulate (map, config, version) {
     } else {
       // Convert speed to miles per hour
       step['speed'] = util.distanceConvert(step['speed'], 'mi');
+      // Get modified parameters
+      var modified = getManeuverParams(config, version, step, maneuvers);
       var zoom;
       if (config.spacing === 'acceldecel') {
         // Calculate zoom as a function of speed
         zoom = zoomBySpeed(config, step);
       } else {
         // Calculate zoom as a function of proximity to next maneuver
-        zoom = getManeuverParams(config, version, step, maneuvers, 'zoom');
+        zoom = modified.zoom;
       }
       // Calculate pitch as a function of proximity to next maneuver
-      var pitch = getManeuverParams(config, version, step, maneuvers, 'pitch');
+      var pitch = modified.pitch;
       map.easeTo({
         center: step.coords,
         bearing: step.bearing,
@@ -87,7 +90,7 @@ function simulate (map, config, version) {
         easing: function (v) { return v; }
       });
       // Pass the new parameters back for display on the map
-      response.emit('update', { pitch:pitch, zoom:zoom, speed:step.speed });
+      response.emit('update', { coords:step.coords, pitch:pitch, zoom:zoom, speed:step.speed });
     }
   }, speed);
   response.interval = interval;
@@ -140,16 +143,15 @@ function seek (config, route) {
  * if `spacing`: `acceldecel`.
  * @param {Object} maneuvers All manuevers along a route.
  * See `getManeuvers` function for more information.
- * @param {string} property Parameter to query for. Should be `zoom` or `pitch`.
  * @results {number} `zoom` or `pitch`.
  */
 module.exports.getManeuverParams = getManeuverParams;
-function getManeuverParams (config, version, step, maneuvers, property) {
+function getManeuverParams (config, version, step, maneuvers) {
   var res = modifyParams(config, version, step, maneuvers);
   if (res === undefined) {
-    return config[property];
+    return config;
   } else {
-    return res[property];
+    return res;
   }
 }
 

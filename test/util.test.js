@@ -44,3 +44,9 @@ test('util.distanceConvert', function (assert) {
   assert.equal(util.distanceConvert(50,'mi').toFixed(3)/1, 31.069);
   assert.end();
 });
+
+test('util.firstToLowerCase', function (assert) {
+  assert.equal(util.firstToLowerCase('Hello'), 'hello');
+  assert.equal(util.firstToLowerCase('hello'), 'hello');
+  assert.end();
+});

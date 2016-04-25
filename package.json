@@ -19,7 +19,7 @@
     "tape": "4.2.1",
     "turf-distance": "~1.1.0",
     "turf-featurecollection": "^1.0.1",
-    "turf-point": "~2.0.1"
+    "turf-point": "^2.0.1"
   },
   "scripts": {
     "start": "budo ./sim/index.js:sim/bundle.js --dir sim/ --live -- -t [ envify --NODE_ENV development ]",
