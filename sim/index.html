@@ -7,30 +7,21 @@
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.13.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.13.0/mapbox-gl.css' rel='stylesheet' />
     <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
-    <style>
-      body { margin:0; padding:0; }
-      #container { position:absolute; width:1280px; height:720px; }
-      #map { position:absolute; top:0; bottom:0; width:100%; height:100%; }
-      #car { width:40px; height:30px; background:url('./car.png') no-repeat; position:absolute; left:620px; top:345px; }
-      #params { margin-top:10px; margin-left:10px; opacity:0.8; }
-      #maneuvers { margin-bottom:10px; margin-left:10px; opacity:0.8; }
-    </style>
+    <link href='main.css' type='text/css' rel='stylesheet'/>
 </head>
 <body>
-  <div id='container'>
-    <div id='map'></div>
-    <div id='car'></div>
-    <div id='params' class='pin-topleft z100 pad2 fill-dark dark round'>
-      <h4><span id='step-pitch'></span></h4>
-      <h4><span id='step-zoom'></span></h4>
-      <h4><span id='step-speed'></span></h4>
-      <h4><span id='step-maneuver'></span></h4>
-    </div>
-    <div id='maneuvers' class='pin-bottomleft z100 pad2 fill-denim dark round'>
-      <h2><span id='step'></span></h2>
-    </div>
+  <div id='map'></div>
+  <div id='car'></div>
+  <div id='params' class='pin-topleft z100 pad2 fill-dark dark round'>
+    <h3><span id='step-pitch'></span></h3>
+    <h3><span id='step-zoom'></span></h3>
+    <h3><span id='step-speed'></span></h3>
+    <h3><span id='step-maneuver'></span></h3>
+  </div>
+  <div id='maneuvers' class='pin-topleft z100 pad2 fill-denim dark round'>
+    <div id='circle' class='pin-topleft z100'></div>
+    <h2><span id='step'></span></h2>
   </div>
   <script src='sim/bundle.js'></script>
-
 </body>
 </html>

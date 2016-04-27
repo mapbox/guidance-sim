@@ -14,6 +14,7 @@
     "guidance-replay": "^0.1.0",
     "jsonlint": "^1.6.2",
     "mapbox-gl": "^0.17.0",
+    "progressbar.js": "^1.0.1",
     "queue-async": "^1.2.1",
     "request": "^2.69.0",
     "tape": "4.2.1",

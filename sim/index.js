@@ -1,6 +1,7 @@
 var currentStep = require('navigation.js').currentStep;
 var mapboxgl = require('mapbox-gl');
 var point = require('turf-point');
+var progressBar = require('progressbar.js')
 var queue = require('queue-async');
 var request = require('request');
 var stylePrep = require('guidance-geojson').stylePrep;
@@ -26,6 +27,17 @@ var map = new mapboxgl.Map({
   style: stylePrep(style, 'route'),
   interactive: false
 }).setPitch(config.pitch);
+
+// Initialize progress bar
+var bar = new progressBar.Circle(circle, {
+  strokeWidth: 7,
+  easing: 'easeInOut',
+  duration: 1000,
+  color: '#fff',
+  trailColor: '#eee',
+  trailWidth: 1,
+  svgStyle: {width: '100%', height: '100%'}
+});
 
 // Pass default values to HTML file for display & run the simulation when the map style is loaded
 document.getElementById('step-pitch').innerHTML = 'pitch: ' + util.isInteger(config.pitch) + '°';
@@ -53,11 +65,18 @@ map.on('style.load', function () {
     var route = config.route.routes[0].legs[0];
     var userCurrentStep = currentStep(userLocation, config.route);
     var userNextStep = navigation.findNextStep(userLocation, route, userCurrentStep);
-    if (route.steps.length - 1 !== userNextStep.step) {
-      document.getElementById('step').innerHTML = 'In ' + Math.round(userNextStep.distance * 5280) + ' feet ' + util.firstToLowerCase(route.steps[userNextStep.step + 1].maneuver.instruction);
+    animateBar(bar, userNextStep);
+
+    if (userNextStep.step < route.steps.length - 1) {
+      document.getElementById('step').innerHTML = '&nbsp;'.repeat(10) + route.steps[userNextStep.step + 1].maneuver.instruction;
     } else {
-      document.getElementById('step').innerHTML = 'You have reached your destination';
+      document.getElementById('step').innerHTML = '&nbsp;'.repeat(10) + 'You have reached your destination';
     }
   });
 });
 
+function animateBar(bar, userNextStep) {
+  var percentComplete = 1 - (userNextStep.distance / userNextStep.stepDistance);
+  console.log(percentComplete);
+  bar.set(percentComplete);  // Number from 0.0 to 1.0
+}

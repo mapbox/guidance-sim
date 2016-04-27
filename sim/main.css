@@ -1,0 +1,43 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 1280px;
+  height: 720px;
+}
+
+#map {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  width: 1280px;
+  height: 720px;
+}
+
+#car {
+  position: absolute;
+  left: 620px;
+  top: 345px;
+  width: 40px;
+  height: 30px;
+  background: url('./car.png') no-repeat;
+}
+
+#params {
+  margin-top:10px;
+  margin-left:10px;
+  opacity:0.8;
+}
+
+#maneuvers {
+  margin-top: 630px;
+  margin-left: 10px;
+  opacity: 0.8;
+}
+
+#circle {
+  margin-top: 14px;
+  margin-left: 14px;
+  width: 50px;
+  height: 50px;
+  padding: 1px;
+}
