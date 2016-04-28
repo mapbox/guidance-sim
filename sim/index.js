@@ -10,6 +10,7 @@ var styleRoute = require('guidance-geojson').styleRoute;
 var config = require('./configuration.json');
 var run = require('../index.js');
 var util = require('../lib/util.js');
+var version = util.version(config.route);
 
 // Ensure that access token is set locally
 if (!process.env.MapboxAccessToken) {
@@ -28,16 +29,21 @@ var map = new mapboxgl.Map({
   interactive: false
 }).setPitch(config.pitch);
 
-// Initialize progress bar
-var bar = new progressBar.Circle(circle, {
-  strokeWidth: 7,
-  easing: 'easeInOut',
-  duration: 1000,
-  color: '#fff',
-  trailColor: '#eee',
-  trailWidth: 1,
-  svgStyle: {width: '100%', height: '100%'}
-});
+if (version === 'v5') {
+  // Make maneuvers div visible
+  var maneuversDiv = document.getElementById('maneuvers');
+  maneuvers.style.visibility = 'visible';
+  // Initialize progress bar for Directions v5 responses
+  var bar = new progressBar.Circle(circle, {
+    strokeWidth: 7,
+    easing: 'easeInOut',
+    duration: 1000,
+    color: '#fff',
+    trailColor: '#eee',
+    trailWidth: 1,
+    svgStyle: {width: '100%', height: '100%'}
+  });
+};
 
 // Pass default values to HTML file for display & run the simulation when the map style is loaded
 document.getElementById('step-pitch').innerHTML = 'pitch: ' + util.isInteger(config.pitch) + '°';
@@ -54,23 +60,26 @@ map.on('style.load', function () {
     document.getElementById('step-zoom').innerHTML = 'zoom: ' + util.isInteger(data.zoom);
     if (data.speed) { document.getElementById('step-speed').innerHTML = 'speed: ' + util.isInteger(data.speed) + ' mph'; }
 
-    // Add navigation
-    var navigation = require('navigation.js').nextStep({
-      units: 'miles',
-      maxReRouteDistance: 0.03,
-      maxSnapToLocation: 0.01
-    });
+    if (version === 'v5') {
+      // Add navigation for Directions v5 responses
 
-    var userLocation = point(data.coords);
-    var route = config.route.routes[0].legs[0];
-    var userCurrentStep = currentStep(userLocation, config.route);
-    var userNextStep = navigation.findNextStep(userLocation, route, userCurrentStep);
-    animateBar(bar, userNextStep);
+      var navigation = require('navigation.js').nextStep({
+        units: 'miles',
+        maxReRouteDistance: 0.03,
+        maxSnapToLocation: 0.01
+      });
 
-    if (userNextStep.step < route.steps.length - 1) {
-      document.getElementById('step').innerHTML = '&nbsp;'.repeat(10) + route.steps[userNextStep.step + 1].maneuver.instruction;
-    } else {
-      document.getElementById('step').innerHTML = '&nbsp;'.repeat(10) + 'You have reached your destination';
+      var userLocation = point(data.coords);
+      var route = config.route.routes[0].legs[0];
+      var userCurrentStep = currentStep(userLocation, config.route);
+      var userNextStep = navigation.findNextStep(userLocation, route, userCurrentStep);
+      animateBar(bar, userNextStep);
+
+      if (userNextStep.step < route.steps.length - 1) {
+        document.getElementById('step').innerHTML = '&nbsp;'.repeat(10) + route.steps[userNextStep.step + 1].maneuver.instruction;
+      } else {
+        document.getElementById('step').innerHTML = '&nbsp;'.repeat(10) + 'You have reached your destination';
+      }
     }
   });
 });

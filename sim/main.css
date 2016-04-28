@@ -32,6 +32,7 @@ html, body {
   margin-top: 630px;
   margin-left: 10px;
   opacity: 0.8;
+  visibility: hidden;
 }
 
 #circle {
