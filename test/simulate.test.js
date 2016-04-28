@@ -1,5 +1,5 @@
 var test = require('tape');
-var simulate = require('../index.js').simulate;
+var simulate = require('../lib/simulate').simulate;
 
 test('Tests simulate function', function (assert) {
   var map = {};

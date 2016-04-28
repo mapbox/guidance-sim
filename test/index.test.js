@@ -1,10 +1,10 @@
 var test = require('tape');
 
-var seek = require('../index.js').seek;
-var getManeuverParams = require('../index.js').getManeuverParams;
-var modifyParams = require('../index.js').modifyParams;
-var calculateParams = require('../index.js').calculateParams;
-var zoomBySpeed = require('../index.js').zoomBySpeed;
+var seek = require('../lib/simulate').seek;
+var getManeuverParams = require('../lib/simulate').getManeuverParams;
+var modifyParams = require('../lib/simulate').modifyParams;
+var calculateParams = require('../lib/simulate').calculateParams;
+var zoomBySpeed = require('../lib/simulate').zoomBySpeed;
 
 var config;
 var version;
@@ -41,8 +41,6 @@ test('seek', function (assert) {
 test('getManeuverParams & modifyParams', function (assert) {
   var maneuvers;
   var response;
-  var zoom;
-  var pitch;
 
   config = JSON.parse(JSON.stringify(require('./fixtures/configuration.v4.test.json')));
   version = 'v4';
@@ -50,17 +48,16 @@ test('getManeuverParams & modifyParams', function (assert) {
   maneuvers = JSON.parse(JSON.stringify(require('./fixtures/maneuvers.v4.test.json')));
   for (var i = 0; i < steps.length; i++) {
     response = modifyParams(config, version, steps[i], maneuvers);
-    zoom = getManeuverParams(config, version, steps[i], maneuvers, 'zoom');
-    pitch = getManeuverParams(config, version, steps[i], maneuvers, 'pitch');
+    modified = getManeuverParams(config, version, steps[i], maneuvers);
     if (i < 3) {
       assert.equal(typeof response, 'object', 'The second two steps should return an object');
       assert.ok(response.type.indexOf('turn left') !== -1, 'The maneuver type response should contain \'turn left\' as an option');
-      assert.ok(17 < response.zoom && zoom < 17.5, 'The zoom level should be between 17 and 17.5');
-      assert.ok(35 < response.pitch && pitch < 40, 'Pitch should be between 35 and 40');
+      assert.ok(17 <= response.zoom && modified.zoom <= 17.5, 'The zoom level should be between 17 and 17.5');
+      assert.ok(35 <= response.pitch && modified.pitch <= 40, 'Pitch should be between 35 and 40');
     } else {
       assert.equal(response, undefined, 'The first two steps are not within the buffer zone of a maneuver');
-      assert.equal(zoom, 17, 'Zoom should be exactly 17');
-      assert.equal(pitch, 40, 'Pitch should be exactly 40');
+      assert.equal(modified.zoom, 17, 'Zoom should be exactly 17');
+      assert.equal(modified.pitch, 40, 'Pitch should be exactly 40');
     }
   }
 
@@ -70,18 +67,17 @@ test('getManeuverParams & modifyParams', function (assert) {
   maneuvers = JSON.parse(JSON.stringify(require('./fixtures/maneuvers.v5.test.json')));
   for (var j = 0; j < steps.length; j++) {
     response = modifyParams(config, version, steps[j], maneuvers);
-    zoom = getManeuverParams(config, version, steps[j], maneuvers, 'zoom');
-    pitch = getManeuverParams(config, version, steps[j], maneuvers, 'pitch');
+    modified = getManeuverParams(config, version, steps[j], maneuvers);
     if (j < 2) {
       assert.equal(response, undefined, 'The first two steps are not within the buffer zone of a maneuver');
-      assert.equal(zoom, 17, 'Zoom should be exactly 17');
-      assert.equal(pitch, 40, 'Pitch should be exactly 40');
+      assert.equal(modified.zoom, 17, 'Zoom should be exactly 17');
+      assert.equal(modified.pitch, 40, 'Pitch should be exactly 40');
     } else {
       assert.equal(typeof response, 'object', 'The second two steps should return an object');
       assert.ok(response.type.indexOf('turn') !== -1, 'The maneuver type response should contain \'turn\' as an option');
       assert.ok(response.modifier.indexOf('left') !== -1, 'The maneuver modifier should contain \'left\' as an option');
-      assert.ok(17 < response.zoom && zoom < 17.5, 'The zoom level should be between 17 and 17.5');
-      assert.ok(35 < response.pitch && pitch < 40, 'Pitch should be between 35 and 40');
+      assert.ok(17 <= response.zoom && modified.zoom <= 17.5, 'The zoom level should be between 17 and 17.5');
+      assert.ok(35 <= response.pitch && modified.pitch <= 40, 'Pitch should be between 35 and 40');
     }
   }
 
