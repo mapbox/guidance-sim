@@ -8,7 +8,7 @@ var stylePrep = require('guidance-geojson').stylePrep;
 var styleRoute = require('guidance-geojson').styleRoute;
 
 var config = require('./configuration.json');
-var run = require('../index.js');
+var run = require('../index.js').simulate;
 var util = require('../lib/util.js');
 var version = util.version(config.route);
 

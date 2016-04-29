@@ -1,4 +1,4 @@
 module.exports = {
-  '': require('./lib/simulate'),
+  simulate: require('./lib/simulate'),
   util: require('./lib/util')
 };
