@@ -276,5 +276,8 @@ function zoomBySpeed (config, step) {
   var zoomDiff = speedDiff / 70;
   // Determine new zoom level
   var response = config.zoom - zoomDiff;
-  return response;
+
+  var minzoom = config.minzoom || (config.zoom-1);
+  var maxzoom = config.maxzoom || (config.zoom+1);
+  return Math.min(maxzoom, Math.max(minzoom, response));
 }
