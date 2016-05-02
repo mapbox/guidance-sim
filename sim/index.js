@@ -45,12 +45,12 @@ updateParams(config); // pass default values to HTML file for display & run the 
 
 map.on('style.load', function () {
   var res = run(map, config); // run the simulation
-  var userStep = 0; // assume that you are starting on the first step
   styleRoute(mapboxgl, map, config.route); // add the stylized route to the map
+  var userStep = 0; // assume that you are starting on the first step
 
   res.on('update', function(data) {
     updateParams(data); // display updated simulation parameters
-    
+
     // add navigation for Mapbox Directions v5 responses
     if (version === 'v5') {
       var navigation = require('navigation.js')({
@@ -61,14 +61,15 @@ map.on('style.load', function () {
 
       var userLocation = point(data.coords); // get the current simulation location
       var route = config.route.routes[0].legs[0];
-      var userNextStep = navigation.findNextStep(userLocation, route, userStep); // determine the next step
-      if (userNextStep.step > userStep) { userStep++; } // if the step has incremented up in the navigation.js response, increment in simulation as well
-      animateBar(bar, userNextStep);
-
-      if (userNextStep.step < route.steps.length - 1) {
-        document.getElementById('step').innerHTML = route.steps[userNextStep.step + 1].maneuver.instruction;
-      } else {
-        document.getElementById('step').innerHTML = 'You have reached your destination';
+      if (userStep < route.steps.length) {
+        var userNextStep = navigation.findNextStep(userLocation, route, userStep); // determine the next step
+        if (userNextStep.step > userStep) { userStep++; } // if the step has incremented up in the navigation.js response, increment in simulation as well
+        animateBar(bar, userNextStep);
+        if (userNextStep.step < route.steps.length - 1) {
+          document.getElementById('step').innerHTML = route.steps[userNextStep.step + 1].maneuver.instruction;
+        } else {
+          document.getElementById('step').innerHTML = 'You have reached your destination';
+        }
       }
     }
   });
@@ -77,12 +78,12 @@ map.on('style.load', function () {
 function updateParams(source) {
   document.getElementById('step-pitch').innerHTML = 'pitch: ' + util.isInteger(source.pitch) + '°';
   document.getElementById('step-zoom').innerHTML = 'zoom: ' + util.isInteger(source.zoom);
-  if (source.style) { // indicates map initialization since the config is passed instead of emitter data
-    if (source.spacing === 'acceldecel') {
+  if (source.maneuvers) { // indicates map initialization since the config is passed instead of emitter data
+    if (source.spacing && source.spacing === 'acceldecel') {
       document.getElementById('step-speed').innerHTML = 'speed: ' + 0 + ' mph';
     }
   } else {
-    if (!source.style && source.speed) {
+    if (!source.maneuvers && source.speed) {
       document.getElementById('step-speed').innerHTML = 'speed: ' + util.isInteger(source.speed) + ' mph';
     }
   }

@@ -5,7 +5,6 @@
   "pitch": 60,
   "time": "00m00s",
   "speed": "1x",
-  "spacing": "acceldecel",
   "maneuvers": [
     {
       "type": [
