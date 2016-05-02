@@ -1,9 +1,6 @@
-var currentStep = require('navigation.js').currentStep;
 var mapboxgl = require('mapbox-gl');
 var point = require('turf-point');
-var progressBar = require('progressbar.js')
-var queue = require('queue-async');
-var request = require('request');
+var progressBar = require('progressbar.js');
 var stylePrep = require('guidance-geojson').stylePrep;
 var styleRoute = require('guidance-geojson').styleRoute;
 
@@ -30,9 +27,8 @@ var map = new mapboxgl.Map({
 }).setPitch(config.pitch);
 
 if (version === 'v5') {
-  // Make maneuvers div visible
   var maneuversDiv = document.getElementById('maneuvers');
-  maneuvers.style.visibility = 'visible';
+  maneuvers.style.visibility = 'visible'; // make maneuvers div visible
   // Initialize progress bar for Directions v5 responses
   var bar = new progressBar.Circle(circle, {
     strokeWidth: 7,
@@ -45,47 +41,54 @@ if (version === 'v5') {
   });
 };
 
-// Pass default values to HTML file for display & run the simulation when the map style is loaded
-document.getElementById('step-pitch').innerHTML = 'pitch: ' + util.isInteger(config.pitch) + '°';
-document.getElementById('step-zoom').innerHTML = 'zoom: ' + util.isInteger(config.zoom);
-if (config.spacing === 'acceldecel') { document.getElementById('step-speed').innerHTML = 'speed: ' + 0 + ' mph'; }
+updateParams(config); // pass default values to HTML file for display & run the simulation when the map style is loaded
 
 map.on('style.load', function () {
-  var res = run(map, config);
-  // Add the stylized route to the map
-  styleRoute(mapboxgl, map, config.route);
-  // Display updated simulation parameters
+  var res = run(map, config); // run the simulation
+  var userStep = 0; // assume that you are starting on the first step
+  styleRoute(mapboxgl, map, config.route); // add the stylized route to the map
+
   res.on('update', function(data) {
-    document.getElementById('step-pitch').innerHTML = 'pitch: ' + util.isInteger(data.pitch) + '°';
-    document.getElementById('step-zoom').innerHTML = 'zoom: ' + util.isInteger(data.zoom);
-    if (data.speed) { document.getElementById('step-speed').innerHTML = 'speed: ' + util.isInteger(data.speed) + ' mph'; }
-
+    updateParams(data); // display updated simulation parameters
+    
+    // add navigation for Mapbox Directions v5 responses
     if (version === 'v5') {
-      // Add navigation for Directions v5 responses
-
-      var navigation = require('navigation.js').nextStep({
+      var navigation = require('navigation.js')({
         units: 'miles',
         maxReRouteDistance: 0.03,
         maxSnapToLocation: 0.01
       });
 
-      var userLocation = point(data.coords);
+      var userLocation = point(data.coords); // get the current simulation location
       var route = config.route.routes[0].legs[0];
-      var userCurrentStep = currentStep(userLocation, config.route);
-      var userNextStep = navigation.findNextStep(userLocation, route, userCurrentStep);
+      var userNextStep = navigation.findNextStep(userLocation, route, userStep); // determine the next step
+      if (userNextStep.step > userStep) { userStep++; } // if the step has incremented up in the navigation.js response, increment in simulation as well
       animateBar(bar, userNextStep);
 
       if (userNextStep.step < route.steps.length - 1) {
-        document.getElementById('step').innerHTML = '&nbsp;'.repeat(10) + route.steps[userNextStep.step + 1].maneuver.instruction;
+        document.getElementById('step').innerHTML = route.steps[userNextStep.step + 1].maneuver.instruction;
       } else {
-        document.getElementById('step').innerHTML = '&nbsp;'.repeat(10) + 'You have reached your destination';
+        document.getElementById('step').innerHTML = 'You have reached your destination';
       }
     }
   });
 });
 
+function updateParams(source) {
+  document.getElementById('step-pitch').innerHTML = 'pitch: ' + util.isInteger(source.pitch) + '°';
+  document.getElementById('step-zoom').innerHTML = 'zoom: ' + util.isInteger(source.zoom);
+  if (source.style) { // indicates map initialization since the config is passed instead of emitter data
+    if (source.spacing === 'acceldecel') {
+      document.getElementById('step-speed').innerHTML = 'speed: ' + 0 + ' mph';
+    }
+  } else {
+    if (!source.style && source.speed) {
+      document.getElementById('step-speed').innerHTML = 'speed: ' + util.isInteger(source.speed) + ' mph';
+    }
+  }
+}
+
 function animateBar(bar, userNextStep) {
   var percentComplete = 1 - (userNextStep.distance / userNextStep.stepDistance);
-  console.log(percentComplete);
   bar.set(percentComplete);  // Number from 0.0 to 1.0
 }
