@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/mapbox/guidance-sim.png)](https://travis-ci.org/mapbox/guidance-sim)
+
 guidance-sim
 ----
 A project to simulate guidance routes using [Mapbox GL JS](https://www.mapbox.com/mapbox-gl-js/api/) from [Mapbox Directions API](https://www.mapbox.com/api-documentation/#directions) responses.

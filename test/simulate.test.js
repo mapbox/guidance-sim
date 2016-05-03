@@ -93,25 +93,25 @@ test('Tests simulate function', function (assert) {
     var latitude1 = 40.365676362409125;
     var bearing1 = -88.6329770838254;
     assert.ok(Math.abs(responses[1].center[0] - longitude1) <= 0.0000001 && Math.abs(responses[1].center[1] - latitude1) <= 0.00001, 'map.easeTo called for step #2 with center within reasonable threshold of -105.5838439318794,40.365676362409125');
-    assert.ok(Math.abs(responses[1].bearing - bearing1) <= 0.0000001, 'map.easeTo called for step #2 with bearing within reasonable threshold of -22.357349789504433');
+    assert.ok(Math.abs(responses[1].bearing - bearing1) <= 0.0000001, 'map.easeTo called for step #2 with bearing within reasonable threshold of -88.6329770838254');
    
     var longitude2 = -105.58391882532591;
     var latitude2 = 40.36567832752468;
     var bearing2 = -88.02763348689591;
     assert.ok(Math.abs(responses[2].center[0] - longitude2) <= 0.0000001 && Math.abs(responses[2].center[1] - latitude2) <= 0.00001, 'map.easeTo called for step #3 with center within reasonable threshold of -105.58391882532591,40.36567832752468');
-    assert.ok(Math.abs(responses[2].bearing - bearing2) <= 0.0000001, 'map.easeTo called for step #3 with bearing within reasonable threshold of -22.357382569658075');
+    assert.ok(Math.abs(responses[2].bearing - bearing2) <= 0.0000001, 'map.easeTo called for step #3 with bearing within reasonable threshold of -88.02763348689591');
     
     var longitude3 = -105.58399368496539;
     var latitude3 = 40.36568082283482;
     var bearing3 = -87.49496514567676;
     assert.ok(Math.abs(responses[3].center[0] - longitude3) <= 0.0000001 && Math.abs(responses[3].center[1] - latitude3) <= 0.00001, 'map.easeTo called for step #4 with center within reasonable threshold of -105.58399368496539,40.36568082283482');
-    assert.ok(Math.abs(responses[3].bearing - bearing3) <= 0.0000001, 'map.easeTo called for step #4 with bearing within reasonable threshold of -22.60180112032371');
+    assert.ok(Math.abs(responses[3].bearing - bearing3) <= 0.0000001, 'map.easeTo called for step #4 with bearing within reasonable threshold of -87.49496514567676');
     
     var longitude4 = -105.58406843278878;
     var latitude4 = 40.36568530592743;
     var bearing4 = -85.49912942979803;
     assert.ok(Math.abs(responses[4].center[0] - longitude4) <= 0.0000001 && Math.abs(responses[4].center[1] - latitude4) <= 0.00001, 'map.easeTo called for step #4 with center within reasonable threshold of -105.58406843278878,40.36568530592743');
-    assert.ok(Math.abs(responses[4].bearing - bearing4) <= 0.0000001, 'map.easeTo called for step #4 with bearing within reasonable threshold of -23.942618407309563');
+    assert.ok(Math.abs(responses[4].bearing - bearing4) <= 0.0000001, 'map.easeTo called for step #4 with bearing within reasonable threshold of -85.49912942979803');
 
     for (var i = 0; i < responses.length; i++) {
       assert.equal(responses[i].duration, 1000, 'map.easeTo called for each step with duration at 1000');
