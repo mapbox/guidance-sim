@@ -4,7 +4,7 @@ var run = require('../index.js');
 test('Tests run function', function (assert) {
   var map = {};
   map.setCenter = function (center) {
-    assert.deepEqual(center, [ -105.585181, 40.365692 ], 'map.setCenter called with first coordinate in route linestring');
+    assert.deepEqual(center, [ -105.582209, 40.36596 ], 'map.setCenter called with first coordinate in route linestring');
   };
   map.easeTo = function (object) {
     assert.ok(typeof object === 'object' && object.center && object.bearing !== undefined && object.duration && object.pitch && object.zoom && object.easing, 'map.easeTo is called with objects that contain the expected params');
