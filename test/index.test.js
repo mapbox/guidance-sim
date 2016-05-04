@@ -13,28 +13,19 @@ var steps;
 
 test('seek', function (assert) {
   var route;
-  var length;
   var start;
 
   config = JSON.parse(JSON.stringify(require('./fixtures/configuration.v4.test.json')));
   route = JSON.parse(JSON.stringify(require('./fixtures/route.v4.test.json')));
-  expected = route.properties.coordinateProperties.times[22] - route.properties.coordinateProperties.times[21];
-  length = route.properties.coordinateProperties.times.length;
-  start = route.properties.coordinateProperties.times.indexOf(29080);
-  route = seek(config, route);
-  assert.equal(route.properties.coordinateProperties.times[0], 0);
-  assert.equal(route.properties.coordinateProperties.times[1], expected);
-  assert.equal(route.properties.coordinateProperties.times.length, length - start);
+  expected = 21;
+  start = seek(config, route);
+  assert.equal(start, expected, 'Should equal 21');
 
   config = JSON.parse(JSON.stringify(require('./fixtures/configuration.v5.test.json')));
   route = JSON.parse(JSON.stringify(require('./fixtures/route.v5.test.json')));
-  expected = route.properties.coordinateProperties.times[14] - route.properties.coordinateProperties.times[13];
-  length = route.properties.coordinateProperties.times.length;
-  start = route.properties.coordinateProperties.times.indexOf(29838);
-  route = seek(config, route);
-  assert.equal(route.properties.coordinateProperties.times[0], 0);
-  assert.equal(route.properties.coordinateProperties.times[1], expected);
-  assert.equal(route.properties.coordinateProperties.times.length, length - start);
+  expected = 13;
+  start = seek(config, route);
+  assert.equal(start, expected, 'Should equal 13');
   assert.end();
 });
 

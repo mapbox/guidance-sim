@@ -62,7 +62,7 @@ map.on('style.load', function () {
       var userLocation = point(data.coords); // get the current simulation location
       var route = config.route.routes[0].legs[0];
       if (userStep < route.steps.length) {
-        var userNextStep = navigation.findNextStep(userLocation, route, userStep); // determine the next step
+        var userNextStep = navigation.getCurrentStep(userLocation, route, userStep); // determine the next step
         if (userNextStep.step > userStep) { userStep++; } // if the step has incremented up in the navigation.js response, increment in simulation as well
         animateBar(bar, userNextStep);
         if (userNextStep.step < route.steps.length - 1) {
