@@ -5,6 +5,7 @@ var stylePrep = require('guidance-geojson').stylePrep;
 var styleRoute = require('guidance-geojson').styleRoute;
 
 var config = require('./configuration.json');
+var getStep = require('../lib/getStep.js');
 var run = require('../index.js').simulate;
 var util = require('../lib/util.js');
 var version = util.version(config.route);
@@ -46,11 +47,10 @@ updateParams(config); // pass default values to HTML file for display & run the 
 map.on('style.load', function () {
   var res = run(map, config); // run the simulation
   styleRoute(mapboxgl, map, config.route); // add the stylized route to the map
-  var userStep = 0; // assume that you are starting on the first step
 
   res.on('update', function(data) {
     updateParams(data); // display updated simulation parameters
-
+    var userStep = getStep(config.route, data.time, version, 'step');
     // add navigation for Mapbox Directions v5 responses
     if (version === 'v5') {
       var navigation = require('navigation.js')({

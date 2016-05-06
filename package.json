@@ -14,13 +14,14 @@
     "guidance-replay": "https://github.com/mapbox/guidance-replay/tarball/hide-and-seek",
     "jsonlint": "^1.6.2",
     "mapbox-gl": "^0.17.0",
-    "navigation.js": "https://github.com/mapbox/navigation.js/tarball/master",
+    "navigation.js": "https://github.com/mapbox/navigation.js/tarball/mb-pages",
     "progressbar.js": "^1.0.1",
     "tape": "4.2.1",
-    "turf-bearing": "^1.0.2",
+    "turf-along": "^1.0.2",
     "turf-distance": "~1.1.0",
-    "turf-featurecollection": "^1.0.1",
-    "turf-point": "~2.0.1"
+    "turf-linestring": "^1.0.2",
+    "turf-point": "~2.0.1",
+    "turf-point-on-line": "^1.0.2"
   },
   "scripts": {
     "start": "budo ./sim/index.js:sim/bundle.js --dir sim/ --live -- -t [ envify --NODE_ENV development ]",

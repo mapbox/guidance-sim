@@ -26,9 +26,9 @@ test('util.timestamp', function (assert) {
 });
 
 test('util.speed', function (assert) {
-  assert.equal(util.speed({ 'speed': '1x' }, 1000), 1000);
-  assert.equal(util.speed({ 'speed': '2x' }, 1000), 500);
-  assert.equal(util.speed({ 'speed': '0.5x' }, 1000), 2000);
+  assert.equal(util.speed('1x', 1000), 1000);
+  assert.equal(util.speed('2x', 1000), 500);
+  assert.equal(util.speed('0.5x', 1000), 2000);
   assert.end();
 });
 

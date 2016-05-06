@@ -1,6 +1,5 @@
 var test = require('tape');
 
-var seek = require('../lib/simulate').seek;
 var getManeuverParams = require('../lib/simulate').getManeuverParams;
 var modifyParams = require('../lib/simulate').modifyParams;
 var calculateParams = require('../lib/simulate').calculateParams;
@@ -10,24 +9,6 @@ var config;
 var version;
 var expected;
 var steps;
-
-test('seek', function (assert) {
-  var route;
-  var start;
-
-  config = JSON.parse(JSON.stringify(require('./fixtures/configuration.v4.test.json')));
-  route = JSON.parse(JSON.stringify(require('./fixtures/route.v4.test.json')));
-  expected = 21;
-  start = seek(config, route);
-  assert.equal(start, expected, 'Should equal 21');
-
-  config = JSON.parse(JSON.stringify(require('./fixtures/configuration.v5.test.json')));
-  route = JSON.parse(JSON.stringify(require('./fixtures/route.v5.test.json')));
-  expected = 13;
-  start = seek(config, route);
-  assert.equal(start, expected, 'Should equal 13');
-  assert.end();
-});
 
 test('getManeuverParams & modifyParams', function (assert) {
   var maneuvers;
