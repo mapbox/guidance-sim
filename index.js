@@ -54,7 +54,7 @@ function simulate (map, config, version) {
   map.setCenter(route.geometry.coordinates[0]);
 
   // Set frequency and invoke the event emitter
-  var frequency = 1000;
+  var frequency = 100;
   var emitter = new Emitter(route, frequency);
   var speed = util.speed(config, frequency);
   var step = '';
