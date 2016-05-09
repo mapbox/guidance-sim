@@ -4,6 +4,7 @@
   "zoom": 18,
   "pitch": 60,
   "time": "00m00s",
+  "spacing": "acceldecel",
   "speed": "1x",
   "maneuvers": [
     {

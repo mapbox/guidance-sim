@@ -21,9 +21,10 @@ test('maneuvers', function (assert) {
   version = 'v5';
   modified = maneuvers(config, version);
   expected = {
-    '-105.581675,40.366194': [ 'arrive', undefined ],
+    '-105.581675,40.366194': [ 'depart', undefined ],
     '-105.585075,40.365892': [ 'turn', 'left' ],
-    '-105.586052,40.358819': [ 'turn', 'right' ]
+    '-105.586052,40.358819': [ 'turn', 'right' ],
+    '-105.590121,40.358024': [ 'arrive', undefined ]
   };
   assert.deepEqual(modified, expected);
   assert.end();
