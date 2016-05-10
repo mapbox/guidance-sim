@@ -87,6 +87,54 @@ This script validates the configuration file. You will be prompted to provide th
 
 If there are errors, the script will print the first error it encounters. If there are no errors, the script will print the JSON-formatted configuration file contents back into the terminal.
 
+### Seeking to a Different Point in the Simulation
+
+This function runs the Emitter.stepsTaken function from [guidance-replay](https://github.com/mapbox/guidance-replay)
+using the start time determined by the user in the configuration file.
+
+```js
+var Emitter = require('guidance-replay').Emitter;
+var route = require('guidance-replay').route;
+var stepsTaken = require('guidance-sim').stepsTaken;
+
+var configuration = require('./configuration.json');
+var emitter = new Emitter(route(configuration.route), 1000);
+var seek = 10000 // desired seek time in milliseconds
+
+stepsTaken(emitter, seek);
+```
+
+#### Parameters
+
+-   `emitter` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** An event emitter object coming off the [`Emitter` function in `guidance-replay`](https://github.com/mapbox/guidance-replay#emitter)
+-   `scrub` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** Desired start time in milliseconds.
+
+### Adjusting Simulation Speed
+
+This function clears the current interval and reinitializes a new interval using a new speed value.
+
+```js
+var setSpeed = require('guidance-sim').setSpeed;
+
+var map = new mapboxgl.Map({
+    // desired map options
+});
+map.on('style.load', function () {
+    var response = simulate(map, configuration);
+    response.on('update', function(data) {
+      var newSpeed = 500;
+      response.interval = setSpeed(response, response.interval, newSpeed, data.options.frequency);
+    })
+});
+```
+
+#### Parameters
+
+-   `response` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** An EventEmitter object
+-   `interval` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** An interval ID
+-   `speed` **[Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** The duration in milliseconds over which to ease the map to the new location
+-   `options` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Map options from initialization; see [`simulate.js` L62:71](https://github.com/mapbox/guidance-sim/blob/2f1b567101a5b00e00e933f0b2c8a7181b4ec74a/lib/simulate.js#L62-L71) for more information
+
 ### Test
 
 ```
