@@ -4,34 +4,35 @@ guidance-sim
 ----
 A project to simulate guidance routes using [Mapbox GL JS](https://www.mapbox.com/mapbox-gl-js/api/) from [Mapbox Directions API](https://www.mapbox.com/api-documentation/#directions) responses.
 
+### Simulating a Mapbox Directions Guidance Route
+
 ```js
-var guidanceSim = require('guidance-sim');
+var simulate = require('guidance-sim').simulate;
+var configuration = require('./configuration.json');
 
 var map = new mapboxgl.Map({
-    // desired map configurations
+    // desired map options
 });
 map.on('style.load', function () {
-    guidanceSim(map, configuration);
+    simulate(map, configuration);
 });
 ```
 
-### Simulating a Mapbox Directions Guidance Route
+#### Parameters
 
-The guidance simulator requires 2 inputs:
+-   `map` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Mapbox GL [map object](https://www.mapbox.com/mapbox-gl-js/api/#Map)
+-   `config` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Configuration parameters, which include the following:
 
-* a Mapbox GL JS [`map` object](https://www.mapbox.com/mapbox-gl-js/api/#Map), and
-* a configuration object with the following parameters:
-
-| parameter | required | default value | notes |
+| parameter | required | type | default value | notes |
 | --- | --- | --- | --- |
-| style | yes | `mapbox://styles/mapbox/streets-v8` | style ID provided by Mapbox Studio |
-| route | yes | --- | Mapbox Directions v4 or v5 API response |
-| spacing | no | `constant` | `acceldecel` may be configured for Mapbox Directions v5 API responses for dynamic playback rate |
-| zoom | yes | `17` | <ul><li>If `spacing`:`constant` - zoom when not maneuvering</li><li>If `spacing`:`acceldecel` - zoom at 30mph</li></ul> |
-| pitch | yes | `45` | pitch when not maneuvering |
-| timestamp | yes | `00h00m00s` | route simulation playback start time |
-| speed | yes | `1x` | route simulation playback speed |
-| maneuvers | yes | --- | object specifying desired `buffer` (miles), `zoom`, and `pitch` for maneuvers |
+| `style` | Yes | String | `mapbox://styles/mapbox/streets-v8` | Style ID provided by Mapbox Studio |
+| `route` | Yes | Object | --- | Mapbox Directions v4 or v5 API response |
+| `spacing` | No | String | `constant` | <ul><li>`constant` assumes a constant speed throughout playback</li><li>`acceldecel` assumes an average speed per route step</li></ul> |
+| `zoom` | Yes | Number | `17` | <ul><li>If `spacing`:`constant` - zoom when not maneuvering</li><li>If `spacing`:`acceldecel` - zoom at 30mph</li></ul> |
+| `pitch` | Yes | Number | `45` | Pitch when not maneuvering |
+| `timestamp` | Yes | String | `00h00m00s` | Route simulation playback start time |
+| `speed` | Yes | String | `1x` | Route simulation playback speed |
+| `maneuvers` | Yes | Object | --- | Specifies desired `buffer` (miles), `zoom`, and `pitch` for each maneuver |
 
 The `maneuvers` configuration parameter provides the simulator alternative map parameters when approaching and exiting a maneuver. The following configuration will ease sinusoidally from a pitch of 40° to 35° and zoom of 17 to 17.5 beginning 0.10 miles away from any turns, and ease back to the default values over 0.10 miles afterwards:
 

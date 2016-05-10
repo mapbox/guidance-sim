@@ -1,7 +1,7 @@
 var test = require('tape');
 var simulate = require('../index.js').simulate;
 
-test('Tests simulate function', function (assert) {
+test('Tests simulate & setMap functions for v4 responses', function (assert) {
   var map = {};
   var config = JSON.parse(JSON.stringify(require('./fixtures/configuration.v4.test.json')));
   var version = 'v4';
@@ -62,7 +62,7 @@ test('Tests simulate function', function (assert) {
   assert.end();
 });
 
-test('Tests simulate function', function (assert) {
+test('Tests simulate & setMap functions for v5 responses', function (assert) {
   var map = {};
   var config = JSON.parse(JSON.stringify(require('./fixtures/configuration.v5.test.json')));
   var version = 'v5';
@@ -122,7 +122,7 @@ test('Tests simulate function', function (assert) {
   assert.end();
 });
 
-test('Tests simulate function', function (assert) {
+test('Tests simulate & setMap functions for v5 responses in speedmode', function (assert) {
   var map = {};
   var config = JSON.parse(JSON.stringify(require('./fixtures/configuration.v5.test.json')));
   config['spacing'] = 'acceldecel';

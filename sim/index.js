@@ -1,3 +1,4 @@
+var Locator = require('guidance-replay').Locator;
 var mapboxgl = require('mapbox-gl');
 var point = require('turf-point');
 var progressBar = require('progressbar.js');
@@ -5,7 +6,6 @@ var stylePrep = require('guidance-geojson').stylePrep;
 var styleRoute = require('guidance-geojson').styleRoute;
 
 var config = require('./configuration.json');
-var getStep = require('../lib/getStep.js');
 var run = require('../index.js').simulate;
 var util = require('../lib/util.js');
 var version = util.version(config.route);
@@ -50,7 +50,8 @@ map.on('style.load', function () {
 
   res.on('update', function(data) {
     updateParams(data); // display updated simulation parameters
-    var userStep = getStep(config.route, data.time, version, 'step');
+    var locator = new Locator(config.route);
+    var userStep = locator.step(data.time);
     // add navigation for Mapbox Directions v5 responses
     if (version === 'v5') {
       var navigation = require('navigation.js')({

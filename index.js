@@ -1,6 +1,6 @@
 module.exports = {
-  getStep: require('./lib/getStep'),
-  setTime: require('./lib/setTime'),
+  setSpeed: require('./lib/setSpeed'),
+  stepsTaken: require('./lib/stepsTaken'),
   simulate: require('./lib/simulate'),
   util: require('./lib/util')
 };

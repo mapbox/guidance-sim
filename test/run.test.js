@@ -48,7 +48,7 @@ test('Tests run function', function (assert) {
       responses.forEach(function(res) {
         assert.ok(35 < res.pitch < 40, 'Pitch property should exist and should be between 35 and 40');
         assert.ok(17 < res.zoom < 17.5, 'Zoom property should exist and should be between 17 and 17.5');
-        assert.ok(Math.abs(14.21082472218207 - res.speed) < 0.0000001, 'Speed is within reasonable threshold of expected value');
+        assert.ok(Math.abs(14.21082472218207 - res.stepSpeed) < 0.0000001, 'Speed is within reasonable threshold of expected value');
       });
     }
   });

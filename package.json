@@ -6,12 +6,13 @@
   "dependencies": {
     "browserify": "^13.0.0",
     "budo": "^8.1.0",
+    "documentation": "^4.0.0-beta2",
     "envify": "^3.4.0",
     "eslint": "^2.4.0",
     "events": "^1.1.0",
     "fs": "0.0.2",
     "guidance-geojson": "^0.2.1",
-    "guidance-replay": "https://github.com/mapbox/guidance-replay/tarball/v4-probs",
+    "guidance-replay": "^0.1.3",
     "jsonlint": "^1.6.2",
     "mapbox-gl": "^0.17.0",
     "navigation.js": "https://github.com/mapbox/navigation.js/tarball/mb-pages",
@@ -28,6 +29,7 @@
     "pretest": "eslint lib test *.js",
     "test": "tape test/*.test.js",
     "configure": "./lib/configure.sh",
-    "validate": "./lib/validate.sh"
+    "validate": "./lib/validate.sh",
+    "docs": "documentation build lib/* -o docs.md -f md"
   }
 }
