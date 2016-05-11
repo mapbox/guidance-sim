@@ -60,7 +60,7 @@ map.on('style.load', function () {
         maxSnapToLocation: 0.01
       });
 
-      var userLocation = point(data.coords); // get the current simulation location
+      var userLocation = point(data.stepCoords); // get the current simulation location
       var route = config.route.routes[0].legs[0];
       if (userStep < route.steps.length) {
         var userNextStep = navigation.getCurrentStep(userLocation, route, userStep); // determine the next step
@@ -84,8 +84,8 @@ function updateParams(source) {
       document.getElementById('step-speed').innerHTML = 'speed: ' + 0 + ' mph';
     }
   } else {
-    if (!source.maneuvers && source.speed) {
-      document.getElementById('step-speed').innerHTML = 'speed: ' + util.isInteger(source.speed) + ' mph';
+    if (!source.maneuvers && source.stepSpeed) {
+      document.getElementById('step-speed').innerHTML = 'speed: ' + util.isInteger(source.stepSpeed) + ' mph';
     }
   }
 }
