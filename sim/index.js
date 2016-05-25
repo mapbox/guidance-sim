@@ -51,7 +51,7 @@ map.on('style.load', function () {
   res.on('update', function(data) {
     updateParams(data); // display updated simulation parameters
     var locator = new Locator(config.route);
-    var userStep = locator.step(data.time);
+    var userStep = locator.step(data.stepTime);
     // add navigation for Mapbox Directions v5 responses
     if (version === 'v5') {
       var navigation = require('navigation.js')({
