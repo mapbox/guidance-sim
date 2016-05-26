@@ -65,7 +65,9 @@ map.on('style.load', function () {
       if (userStep < route.steps.length) {
         var userNextStep = navigation.getCurrentStep(userLocation, route, userStep); // determine the next step
         if (userNextStep.step > userStep) { userStep++; } // if the step has incremented up in the navigation.js response, increment in simulation as well
-        animateBar(bar, userNextStep);
+
+        var maneuvers = locator.maneuvers();
+        animateBar(bar, data, maneuvers);
         if (userNextStep.step < route.steps.length - 1) {
           document.getElementById('step').innerHTML = route.steps[userNextStep.step + 1].maneuver.instruction;
         } else {
@@ -90,7 +92,12 @@ function updateParams(source) {
   }
 }
 
-function animateBar(bar, userNextStep) {
-  var percentComplete = 1 - (userNextStep.distance / userNextStep.stepDistance);
+function animateBar(bar, data, maneuvers) {
+  var percentComplete;
+  for (var i = 0; i < maneuvers.times.length; i++) {
+    if (data.stepTime > maneuvers.times[i-1] && data.stepTime < maneuvers.times[i]) {
+      percentComplete = 1 - (maneuvers.times[i] - maneuvers.times[i-1] - data.stepTime) / maneuvers.times[i];
+    }
+  }
   bar.set(percentComplete);  // Number from 0.0 to 1.0
 }
