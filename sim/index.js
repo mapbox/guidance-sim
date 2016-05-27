@@ -96,7 +96,7 @@ function animateBar(bar, data, maneuvers) {
   var percentComplete;
   for (var i = 0; i < maneuvers.times.length; i++) {
     if (data.stepTime > maneuvers.times[i-1] && data.stepTime < maneuvers.times[i]) {
-      percentComplete = 1 - (maneuvers.times[i] - maneuvers.times[i-1] - data.stepTime) / maneuvers.times[i];
+      percentComplete = (data.stepTime - maneuvers.times[i-1]) / (maneuvers.times[i] - maneuvers.times[i-1]);
     }
   }
   bar.set(percentComplete);  // Number from 0.0 to 1.0

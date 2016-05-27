@@ -15,9 +15,10 @@ html, body {
   position: absolute;
   left: calc(50% - 19px);
   top: 50%;
-  width: 40px;
-  height: 30px;
+  width: 72px;
+  height: 56px;
   background: url('./car.png') no-repeat;
+  background-size: 50%;
 }
 
 #params {
