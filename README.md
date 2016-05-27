@@ -24,7 +24,7 @@ map.on('style.load', function () {
 -   `config` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Configuration parameters, which include the following:
 
 | parameter | required | type | default value | notes |
-| --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | `style` | Yes | String | `mapbox://styles/mapbox/streets-v8` | Style ID provided by Mapbox Studio |
 | `route` | Yes | Object | --- | Mapbox Directions v4 or v5 API response |
 | `spacing` | No | String | `constant` | <ul><li>`constant` assumes a constant speed throughout playback</li><li>`acceldecel` assumes an average speed per route step</li></ul> |
