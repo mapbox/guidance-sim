@@ -86,6 +86,7 @@ test('Tests simulate & setMap functions for v5 responses', function (assert) {
     var longitude0 = -105.58378121389613;
     var latitude0 = 40.36567522207599;
     var bearing0 = 0;
+
     assert.ok(Math.abs(responses[0].center[0] - longitude0) <= 0.00001 && Math.abs(responses[0].center[1] - latitude0) <= 0.00001, 'map.easeTo called for step #1 with center within reasonable threshold of -105.583769,40.365675');
     assert.ok(Math.abs(responses[0].bearing - bearing0) <= 0.00001, 'map.easeTo called for step #1 with bearing within reasonable threshold of 0');
 
