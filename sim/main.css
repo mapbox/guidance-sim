@@ -1,0 +1,45 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#map {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+#car {
+  position: absolute;
+  left: calc(50% - 19px);
+  top: 50%;
+  width: 72px;
+  height: 56px;
+  background: url('./car.png') no-repeat;
+  background-size: 50%;
+}
+
+#params {
+  margin-top:10px;
+  margin-left:10px;
+  opacity: 0.8;
+  background-color: #1445f5;
+}
+
+#maneuvers {
+  bottom: 10px;
+  margin-left: 10px;
+  opacity: 0.8;
+  height: 80px;
+  visibility: hidden;
+  display: inline-block;
+  background-color: #1445f5;
+}
+
+#circle {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}

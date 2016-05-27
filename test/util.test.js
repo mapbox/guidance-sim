@@ -26,9 +26,9 @@ test('util.timestamp', function (assert) {
 });
 
 test('util.speed', function (assert) {
-  assert.equal(util.speed({ 'speed': '1x' }, 1000), 1000);
-  assert.equal(util.speed({ 'speed': '2x' }, 1000), 500);
-  assert.equal(util.speed({ 'speed': '0.5x' }, 1000), 2000);
+  assert.equal(util.speed('1x', 1000), 1000);
+  assert.equal(util.speed('2x', 1000), 500);
+  assert.equal(util.speed('0.5x', 1000), 2000);
   assert.end();
 });
 
@@ -42,5 +42,11 @@ test('util.isInteger', function (assert) {
 test('util.distanceConvert', function (assert) {
   assert.equal(util.distanceConvert(50,'km').toFixed(3)/1, 80.467);
   assert.equal(util.distanceConvert(50,'mi').toFixed(3)/1, 31.069);
+  assert.end();
+});
+
+test('util.firstToLowerCase', function (assert) {
+  assert.equal(util.firstToLowerCase('Hello'), 'hello');
+  assert.equal(util.firstToLowerCase('hello'), 'hello');
   assert.end();
 });
