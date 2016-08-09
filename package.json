@@ -1,6 +1,6 @@
 {
   "name": "guidance-sim",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Creates Mapbox Directions API guidance simulations using Mapbox GL JS",
   "main": "index.js",
   "dependencies": {
