@@ -130,7 +130,7 @@ test('Tests simulate & setMap functions for v5 responses in speedmode', function
   var version = 'v5';
 
   map.setCenter = function (center) {
-    assert.deepEqual(center, [ -105.58380889477377, 40.36600447188571 ], 'map.setCenter called with first coordinate in route linestring');
+    assert.ok(Math.abs(center[0] - (-105.58380889477377)) < 0.00001 && Math.abs(center[1] - (40.36600447188571)) < 0.00001, 'map.setCenter called within reasonable threshold of first coordinate in route linestring');
   };
 
   var response = simulate(map, config, version);
