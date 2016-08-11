@@ -15,7 +15,7 @@
     "guidance-replay": "^0.1.4",
     "jsonlint": "^1.6.2",
     "mapbox-gl": "^0.17.0",
-    "navigation.js": "https://github.com/mapbox/navigation.js/tarball/mb-pages",
+    "navigation.js": "1.1.1",
     "progressbar.js": "^1.0.1",
     "tape": "4.2.1",
     "turf-along": "^1.0.2",
