@@ -1,6 +1,6 @@
 {
   "name": "guidance-sim",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Creates Mapbox Directions API guidance simulations using Mapbox GL JS",
   "main": "index.js",
   "dependencies": {
@@ -10,7 +10,6 @@
     "envify": "^3.4.0",
     "eslint": "^2.4.0",
     "events": "^1.1.0",
-    "fs": "0.0.2",
     "guidance-geojson": "^0.3.1",
     "guidance-replay": "^0.1.4",
     "jsonlint": "^1.6.2",
